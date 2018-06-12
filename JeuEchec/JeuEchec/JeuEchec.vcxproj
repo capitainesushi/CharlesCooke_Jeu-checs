@@ -19,7 +19,15 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Cases.cpp" />
+    <ClCompile Include="Fou.cpp" />
+    <ClCompile Include="Knight.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Pion.cpp" />
+    <ClCompile Include="Pièces.cpp" />
+    <ClCompile Include="Reine.cpp" />
+    <ClCompile Include="Roi.cpp" />
+    <ClCompile Include="Tour.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>

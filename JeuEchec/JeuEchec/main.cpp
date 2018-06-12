@@ -6,6 +6,10 @@ and may not be redistributed without written permission.*/
 #include <SDL_image.h>
 #include <stdio.h>
 #include <string>
+#include <vector>
+#include <iostream>
+
+using namespace std;
 
 //Screen dimension constants
 const int SCREEN_WIDTH = 1000;
@@ -30,10 +34,26 @@ SDL_Window* gWindow = NULL;
 SDL_Surface* gScreenSurface = NULL;
 SDL_Rect gStringSurface;
 
+// Initialiser mon vecteur de vecteur:
+vector<vector<SDL_Rect>> cases = vector<vector<SDL_Rect>>({ {}, {} });
+// Initialiser les surfaces pour les pièces
+vector<vector<SDL_Surface*>> pieces = vector<vector<SDL_Surface*>>({ {}, {} });
+
+
+
+//P.Push_back(new vector<SDL_Rect>);
+//for(j = 0; 
+
 //Current displayed PNG image
 SDL_Surface* ChessBoard = NULL;
-
 SDL_Surface* King = NULL;
+SDL_Surface* Queen = NULL;
+SDL_Surface* Fou = NULL;
+SDL_Surface* Knight = NULL;
+SDL_Surface* Tower = NULL;
+SDL_Surface* Pion = NULL;
+
+
 
 bool init()
 {
@@ -79,12 +99,45 @@ bool init()
 
 bool loadMedia()
 {
-	//Loading success flag
+	
 	bool success = true;
 
+	Pion = loadSurface("Images/chess/Pion.png");
+	if (Pion == NULL)
+	{
+		printf("Failed to load PNG image!\n");
+		success = false;
+	}
 
-	//Load PNG surface
-	King = loadSurface("King.png");
+	Knight = loadSurface("Images/chess/Knight.png");
+	if (Knight == NULL)
+	{
+		printf("Failed to load PNG image!\n");
+		success = false;
+	}
+
+	Tower = loadSurface("Images/chess/Tower.png");
+	if (Tower == NULL)
+	{
+		printf("Failed to load PNG image!\n");
+		success = false;
+	}
+
+	Fou = loadSurface("Images/chess/Fou.png");
+	if (Fou == NULL)
+	{
+		printf("Failed to load PNG image!\n");
+		success = false;
+	}
+
+	Queen = loadSurface("Images/chess/Queen.png");
+	if (Queen == NULL)
+	{
+		printf("Failed to load PNG image!\n");
+		success = false;
+	}
+	
+	King = loadSurface("Images/chess/King.png");
 	if (King == NULL)
 	{
 		printf("Failed to load PNG image!\n");
@@ -92,7 +145,7 @@ bool loadMedia()
 	}
 
 	//Load PNG surface
-	ChessBoard = loadSurface("ChessBoard.bmp");
+	ChessBoard = loadSurface("Images/chess/ChessBoard.bmp");
 	if (ChessBoard == NULL)
 	{
 		printf("Failed to load PNG image!\n");
@@ -117,35 +170,28 @@ void close()
 	SDL_Quit();
 }
 
+
 SDL_Surface* loadSurface(std::string path)
 {
-	//The final optimized image
-	SDL_Surface* optimizedSurface = NULL;
-
-	//Load image at specified path
-	SDL_Surface* loadedSurface = IMG_Load(path.c_str());
-	if (loadedSurface == NULL)
-	{
-		printf("Unable to load image %s! SDL_image Error: %s\n", path.c_str(), IMG_GetError());
-	}
-	else
-	{
-		//Convert surface to screen format
-		optimizedSurface = SDL_ConvertSurface(loadedSurface, gScreenSurface->format, NULL);
-		if (optimizedSurface == NULL)
-		{
-			printf("Unable to optimize image %s! SDL Error: %s\n", path.c_str(), SDL_GetError());
-		}
-
-		//Get rid of old loaded surface
-		SDL_FreeSurface(loadedSurface);
-	}
-
-	return optimizedSurface;
+	return IMG_Load(path.c_str());
 }
+
+
 
 int main(int argc, char* args[])
 {
+	int x = 0;
+	int y = 0;
+
+	// Crée les rectangles dans le chessboard:
+	for (int i = 0; i < 8; i++)
+	{		
+		cases.push_back(vector<SDL_Rect>());
+		for(int j = 0; j < 8; j++)
+		{
+			cases[i].push_back({ j * 125, i * 125, 125, 125 });			
+		}
+	}
 	//Start up SDL and create window
 	if (!init())
 	{
@@ -181,7 +227,14 @@ int main(int argc, char* args[])
 
 				//Apply the PNG image
 				SDL_BlitSurface(ChessBoard, NULL, gScreenSurface, NULL);
-				SDL_BlitSurface(King, NULL, gScreenSurface, &gStringSurface);
+
+				SDL_BlitSurface(Tower, NULL, gScreenSurface, &cases[0][0]);
+				SDL_BlitSurface(Knight, NULL, gScreenSurface, &cases[0][1]);
+				SDL_BlitSurface(Fou, NULL, gScreenSurface, &cases[0][2]);
+				SDL_BlitSurface(Queen, NULL, gScreenSurface, &cases[0][3]);
+				SDL_BlitSurface(King, NULL, gScreenSurface, &cases[0][4]);			
+				SDL_BlitSurface(Fou, NULL, gScreenSurface, &cases[0][5]);
+				SDL_BlitSurface(Pion, NULL, gScreenSurface, &cases[1][0]);
 
 				//Update the surface
 				SDL_UpdateWindowSurface(gWindow);
