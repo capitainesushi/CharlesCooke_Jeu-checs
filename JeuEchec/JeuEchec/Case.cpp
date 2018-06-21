@@ -5,7 +5,10 @@
 
 Case::Case(int x, int y, Piece* apiece)
 {
-	rect = { x,  y, 125, 125 };
+	m_X = x;
+	m_Y = y;
+
+	rect = { m_X,  m_Y, 125, 125 };
 	piece = apiece;
 }
 

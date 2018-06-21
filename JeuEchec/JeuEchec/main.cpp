@@ -10,6 +10,7 @@ and may not be redistributed without written permission.*/
 #include <iostream>
 #include "Board.h"
 #include "Case.h"
+#include "Piece.h"
 
 using namespace std;
 
@@ -34,7 +35,6 @@ SDL_Window* gWindow = NULL;
 
 //The surface contained by the window
 SDL_Surface* gScreenSurface = NULL;
-SDL_Rect gStringSurface;
 
 Board* board;
 
@@ -70,8 +70,7 @@ bool init()
 			else
 			{
 				//Get window surface
-				gScreenSurface = SDL_GetWindowSurface(gWindow);
-				gStringSurface = { 450,450,100,100 };
+				gScreenSurface = SDL_GetWindowSurface(gWindow);			
 
 			}
 		}
@@ -113,16 +112,12 @@ SDL_Surface* loadSurface(std::string path)
 
 int main(int argc, char* args[])
 {
-	
-
-	
-
-
 	//Start up SDL and create window
 	if (!init())
 	{
 		printf("Failed to initialize!\n");
 	}
+
 	else
 	{
 		//Load media
@@ -138,10 +133,13 @@ int main(int argc, char* args[])
 			
 			SDL_Event e;
 			Piece* piece;
-			Case* cases;
-			Board board;
+			Case* lacase = nullptr;
+			
 			int x, y;
+			bool WhiteTurn = true;
 	
+			std::list<std::vector<int>> availablesMoves = std::list<std::vector<int>>();
+
 			while (!quit)
 			{
 		
@@ -155,27 +153,63 @@ int main(int argc, char* args[])
 
 					if (e.type == SDL_MOUSEBUTTONDOWN)
 					{			
-						SDL_GetMouseState(&x, &y);
-						std::cout << x / 125 << "  " << y / 125 << std::endl;					
 
-						if (cases->piece)
+						SDL_GetMouseState(&y, &x);
+						std::cout << x / 125 << "  " << y / 125 << std::endl;
+						
+						lacase = board->GetCase(x / 125, y / 125);
+
+						if (lacase->piece != nullptr)
 						{
+							availablesMoves = lacase->piece->GetAvailableMove(lacase->GetRect());
+							if (!(WhiteTurn && lacase->piece->IsWhite()) && 
+								!(!WhiteTurn && !lacase->piece->IsWhite()))
+							{
+								lacase = nullptr;
+							}
+
+							
+						}
+						else
+						{
+							lacase = nullptr;
 
 						}
 					}
 
 					if (e.type == SDL_MOUSEMOTION)
 					{
-
+						if (lacase != nullptr)
+						{
+							SDL_GetMouseState(&x, &y);
+							lacase->GetRect()->x = x - (125 / 2);
+							lacase->GetRect()->y = y - (125 / 2);
+						}
 					}
 
 					if (e.type == SDL_MOUSEBUTTONUP)
 					{
+						if (lacase != nullptr && lacase->piece != nullptr)
+						{
+							SDL_GetMouseState(&y, &x);
 
+							// Si la position en I et J de GetCase est dans availablesMoves, entrer dans le if.
+							if(board->GetCase(x / 125, y / 125)->piece == nullptr)
+							{
+								board->GetCase(x / 125, y / 125)->piece = lacase->piece;
+								lacase->piece = nullptr;
+
+								WhiteTurn = !WhiteTurn;
+							}
+							
+							lacase->Reset();
+							lacase = nullptr;
+						}
+												
 					}
 
-
 				}
+				
 
 				//Apply the PNG image		
 				board->Render(gScreenSurface);				

@@ -12,12 +12,18 @@ public:
 	Board();
 	~Board();
 	void Render(SDL_Surface* gScreenSurface);
-	vector<vector<Case*>> cases = vector<vector<Case*>>();
+
+	Case* GetCase(int i, int j)
+	{
+		return cases[i][j];
+	}
+	
+	
 
 protected:
 
 private:
 	SDL_Surface* ChessBoard;
-	
+	vector<vector<Case*>> cases = vector<vector<Case*>>();
 };
 

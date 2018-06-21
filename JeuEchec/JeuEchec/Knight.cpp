@@ -3,6 +3,7 @@
 
 
 Knight::Knight(bool IsBlack)
+	: Piece(IsBlack)
 {
 	if (IsBlack)
 	{
@@ -19,3 +20,6 @@ Knight::Knight(bool IsBlack)
 Knight::~Knight()
 {
 }
+
+//std::list<std::vector<int>> Knight::GetAvailableMove(const SDL_Rect* a_Rect)
+

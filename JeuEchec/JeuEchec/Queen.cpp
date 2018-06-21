@@ -3,6 +3,7 @@
 
 
 Queen::Queen(bool IsBlack)
+	: Piece(IsBlack)
 {
 	if (IsBlack)
 	{
@@ -18,3 +19,6 @@ Queen::Queen(bool IsBlack)
 Queen::~Queen()
 {
 }
+
+//std::list<std::vector<int>> Queen::GetAvailableMove(const SDL_Rect* a_Rect)
+

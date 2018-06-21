@@ -2,7 +2,8 @@
 
 
 
-Piece::Piece()
+Piece::Piece(bool IsBlack)
+	: m_IsBlack(IsBlack)
 {	
 }
 

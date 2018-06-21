@@ -3,6 +3,7 @@
 
 
 Fou::Fou(bool IsBlack)
+	: Piece(IsBlack)
 {
 	if (IsBlack)
 	{
@@ -11,7 +12,6 @@ Fou::Fou(bool IsBlack)
 	else
 	{
 		texture = IMG_Load("Images/chess/Fou.png");
-
 	}
 }
 
@@ -19,3 +19,5 @@ Fou::Fou(bool IsBlack)
 Fou::~Fou()
 {
 }
+
+//std::list<std::vector<int>> Fou::GetAvailableMove(const SDL_Rect* a_Rect)
