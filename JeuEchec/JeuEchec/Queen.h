@@ -7,6 +7,6 @@ public:
 	Queen(bool IsBlack);
 	~Queen();
 
-	//virtual std::list<std::vector<int>> GetAvailableMove(const SDL_Rect* a_Rect);
+	std::vector<std::vector<int>> Queen::GetAvailableMove(const SDL_Rect* a_Rect, const std::vector<std::vector<Case*>> cases);
 };
 

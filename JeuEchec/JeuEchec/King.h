@@ -7,6 +7,6 @@ public:
 	King(bool IsBlack);
 	~King();
 
-	//virtual std::list<std::vector<int>> GetAvailableMove(const SDL_Rect* a_Rect);
+	std::vector<std::vector<int>> King::GetAvailableMove(const SDL_Rect* a_Rect, const std::vector<std::vector<Case*>> cases);
 };
 

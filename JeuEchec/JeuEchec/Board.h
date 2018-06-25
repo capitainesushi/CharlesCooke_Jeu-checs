@@ -13,11 +13,8 @@ public:
 	~Board();
 	void Render(SDL_Surface* gScreenSurface);
 
-	Case* GetCase(int i, int j)
-	{
-		return cases[i][j];
-	}
-	
+	Case* GetCase(int i, int j) { return cases[i][j]; }
+	const vector<vector<Case*>> GetCases() { return cases; }
 	
 
 protected:

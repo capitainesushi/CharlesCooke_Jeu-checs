@@ -28,6 +28,8 @@
     <ClCompile Include="Pion.cpp" />
     <ClCompile Include="Queen.cpp" />
     <ClCompile Include="King.cpp" />
+    <ClCompile Include="Source.cpp" />
+    <ClCompile Include="TinyXml2.cpp" />
     <ClCompile Include="Tower.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -39,13 +41,14 @@
     <ClInclude Include="Pion.h" />
     <ClInclude Include="Queen.h" />
     <ClInclude Include="King.h" />
+    <ClInclude Include="TinyXml2.h" />
     <ClInclude Include="Tower.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{10346F88-61CA-469B-8BA2-039F65194A69}</ProjectGuid>
     <RootNamespace>JeuEchec</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.15063.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.10586.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">

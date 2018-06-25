@@ -4,6 +4,7 @@
 #include <list>
 #include <vector>
 #include <iostream>
+#include "Case.h"
 
 class Piece
 {
@@ -18,18 +19,21 @@ public:
 		return !m_IsBlack;
 	}
 
-	virtual std::list<std::vector<int>> GetAvailableMove(const SDL_Rect* a_Rect)
+	
+	virtual std::vector<std::vector<int>> GetAvailableMove(const SDL_Rect* a_Rect, const std::vector<std::vector<Case*>> cases)
 	{
 		std::cout << "Piece" << std::endl;
-		return std::list<std::vector<int>>();
+		return std::vector<std::vector<int>>();
 	}
-	
+
+	bool m_IsBlack;
+
 	
 
 protected:
 SDL_Surface* texture = NULL;
 
-bool m_IsBlack;
+
 
 private:	
 };

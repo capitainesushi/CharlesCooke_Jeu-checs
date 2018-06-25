@@ -7,6 +7,7 @@ public:
 	Fou(bool IsBlack);
 	~Fou();
 
-	//virtual std::list<std::vector<int>> GetAvailableMove(const SDL_Rect* a_Rect);
+	std::vector<std::vector<int>> Fou::GetAvailableMove(const SDL_Rect* a_Rect, const std::vector<std::vector<Case*>> cases);
+	
 };
 

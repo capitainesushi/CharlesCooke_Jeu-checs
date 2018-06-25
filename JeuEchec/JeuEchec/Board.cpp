@@ -14,12 +14,14 @@ Board::Board()
 	//Load PNG surface
 	ChessBoard = IMG_Load("Images/chess/ChessBoard.jpg");	
 
+
+	// Affiche les pièces à l'endroit approprié. Le for permet 
 	for (int i = 0; i < 8; i++)
 	{
 		cases.push_back(vector<Case*>());
 		for (int j = 0; j < 8; j++)
 		{
-			//cases[i].push_back(new Case(j * 125, i * 125, new Knight()));// { j * 125, i * 125, 125, 125 });			
+		
 
 			if (i == 0)
 			{
@@ -39,12 +41,12 @@ Board::Board()
 				}
 
 				else if (j == 3)
-				{
+				{					
 					cases[i].push_back(new Case(j * 125, i * 125, new Queen(true)));
 				}
 
 				else if (j == 4)
-				{
+				{					
 					cases[i].push_back(new Case(j * 125, i * 125, new King(true)));
 				}			
 
@@ -83,7 +85,7 @@ Board::Board()
 				}
 
 				else if (j == 4)
-				{
+				{								
 					cases[i].push_back(new Case(j * 125, i * 125, new King(false)));
 				}
 
