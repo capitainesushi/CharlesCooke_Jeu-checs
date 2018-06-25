@@ -5,6 +5,7 @@
 #include <vector>
 #include <iostream>
 #include "Case.h"
+#include <string>
 
 class Piece
 {
@@ -25,6 +26,8 @@ public:
 		std::cout << "Piece" << std::endl;
 		return std::vector<std::vector<int>>();
 	}
+
+	virtual std::string GetPieceType() { return IsWhite() ? "Blanc" : "Noir"; }
 
 	bool m_IsBlack;
 

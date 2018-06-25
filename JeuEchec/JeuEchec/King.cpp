@@ -3,6 +3,7 @@
 
 
 
+
 King::King(bool IsBlack)
 	: Piece(IsBlack)
 {
@@ -20,6 +21,9 @@ King::King(bool IsBlack)
 King::~King()
 {
 }
+
+
+
 
 std::vector<std::vector<int>> King::GetAvailableMove(const SDL_Rect* a_Rect, const std::vector<std::vector<Case*>> cases)
 {
@@ -86,5 +90,7 @@ std::vector<std::vector<int>> King::GetAvailableMove(const SDL_Rect* a_Rect, con
 
 	return movesAvailables;
 }
+
+
 
 

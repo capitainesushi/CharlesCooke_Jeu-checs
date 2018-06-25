@@ -128,7 +128,7 @@ SDL_Surface* loadSurface(std::string path)
 }
 
 //Su
-int XMLSave()
+int XMLSave(vector<vector<Case*>> cases)
 {
 	//board->GetCase(x, y)->piece = lacase->piece;
 
@@ -139,26 +139,33 @@ int XMLSave()
 	// premier élément création avec pointeur
 	
 	
-	for (int i = 0; i < 8; i++)
+	for (int i = 0; i < cases.size(); i++)
 	{
+		
 
-		for (int j = 0; j < 8; j++)
-		{
+		for (int j = 0; j < cases[i].size(); j++)
+		{				
 			
-			XMLElement * pElement = xmlDoc.NewElement("Case");
-						
-			pElement->SetAttribute("x: ", i);  
-			pElement->SetAttribute("y: ", j);
-
-			pElement->SetText("WhitePawn");
-
+			XMLElement * pListElement = xmlDoc.NewElement("Case");
+			pListElement->SetAttribute("positionX", cases[i][j]->GetRect()->x / 125);
+			pListElement->SetAttribute("positionY", cases[i][j]->GetRect()->y / 125);
 			
-			pRoot->InsertEndChild(pElement);
+			if (cases[i][j]->piece != nullptr)
+			{
+				
+				pListElement->SetText(cases[i][j]->piece->GetPieceType().c_str());
+			}
+			else
+			{
+				pListElement->SetText("null");
+			}
+			
+			pRoot->InsertEndChild(pListElement);			
 		}
 	}
 
 	XMLError returncode_savexml = xmlDoc.SaveFile("SavedData.xml");
-	XMLCheckResult(returncode_savexml);
+	XMLCheckResult(returncode_savexml);	
 }	
 
 
@@ -274,12 +281,10 @@ int main(int argc, char* args[])
 
 									//Change de tour
 									WhiteTurn = !WhiteTurn;
-
-									XMLSave();									
-
-
+									
+									XMLSave(board->GetCases());																	
 								}
-							}						
+							}					
 
 						}
 						if (lacase != nullptr)
@@ -304,6 +309,7 @@ int main(int argc, char* args[])
 		system("pause");
 		//Free resources and close SDL
 		close();
+		
 
 		return 0;
 	}

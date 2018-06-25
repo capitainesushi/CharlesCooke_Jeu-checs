@@ -19,6 +19,7 @@ Pion::~Pion()
 {
 }
 
+
 std::vector<std::vector<int>> Pion::GetAvailableMove(const SDL_Rect* a_Rect, const std::vector<std::vector<Case*>> cases)
 {
 	std::vector<std::vector<int>> movesAvailables = std::vector<std::vector<int>>();
